@@ -12,23 +12,25 @@
 #include <iostream>
 #include <vector>
 
-int ** outer(std::vector<int> & x, std::vector<int> & y) {
+void outer(std::vector<int> & x, std::vector<int> & y, int ** out) {
     int nx = (int) x.size();
     int ny = (int) y.size();
-    
-    int ** res = new int * [nx];
-    for(int i = 0; i < nx; ++i) {
-        res[i] = new int[ny];
-        for(int j = 0; j < ny; ++j) {
-            res[i][j] = false;
-        }
-    }
     
     for(int i = 0; i < nx; ++i) {
         for(int j = 0; j < ny; ++j) {
             if(x[i] <= y[j]) {
-                res[i][j] = true;
+                out[i][j] = true;
             }
+        }
+    }
+}
+
+int ** create_outer(int n) {
+    int ** res = new int * [n];
+    for(int i = 0; i < n; ++i) {
+        res[i] = new int[n];
+        for(int j = 0; j < n; ++j) {
+            res[i][j] = false;
         }
     }
     
@@ -72,21 +74,6 @@ float sum(int * arr, int n) {
     }
     
     return res;
-}
-
-float solve3(std::vector<int> & y) {
-    int n = (int) y.size();
-    
-    int ** out_val = outer(y, y);
-    
-    int * sum_val = sum_rows(out_val, n, n);
-    
-    float sum_loc = sum(sum_val, n);
-    
-    delete_outer(out_val, n);
-    delete [] sum_val;
-    
-    return (n + 1) * sum_loc;
 }
 
 double fac(int n) {
@@ -255,6 +242,23 @@ double solve_rec(std::vector<int> y) {
     expect = expect / fac(n);
     
     return expect;
+}
+
+float solve3(std::vector<int> & y) {
+    int n = (int) y.size();
+    int ** out_val = create_outer(n);
+    int * sum_val = new int[n];
+    
+    outer(y, y, out_val);
+    
+    sum_val = sum_rows(out_val, n, n);
+    
+    float sum_loc = sum(sum_val, n);
+    
+    delete_outer(out_val, n);
+    delete [] sum_val;
+    
+    return (n + 1) * sum_loc;
 }
 
 int main(int argc, const char * argv[]) {
