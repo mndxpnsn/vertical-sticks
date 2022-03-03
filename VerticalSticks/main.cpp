@@ -21,18 +21,18 @@ void outer(std::vector<int> & x, std::vector<int> & y, int ** out) {
             if(x[i] <= y[j]) {
                 out[i][j] = true;
             }
+            else {
+                out[i][j] = false;
+            }
         }
     }
 }
 
 int ** create_outer(int n) {
     int ** res = new int * [n];
-    for(int i = 0; i < n; ++i) {
+    
+    for(int i = 0; i < n; ++i)
         res[i] = new int[n];
-        for(int j = 0; j < n; ++j) {
-            res[i][j] = false;
-        }
-    }
     
     return res;
 }
@@ -46,32 +46,24 @@ void delete_outer(int ** out, int n) {
     delete [] out;
 }
 
-int * sum_rows(int ** outer_arg, int nx, int ny) {
-    
-    int n = nx;
-    
-    int * res = new int[n];
+void sum_rows(int ** outer_arg, int n, int * res) {
     
     for(int i = 0; i < n; ++i) {
         res[i] = 0;
-        for(int j = 0; j < nx; ++j) {
+        for(int j = 0; j < n; ++j) {
             res[i] = res[i] + outer_arg[i][j];
         }
     }
     
-    for(int i = 0; i < n; ++i) {
+    for(int i = 0; i < n; ++i)
         res[i]++;
-    }
-    
-    return res;
 }
 
 float sum(int * arr, int n) {
     float res = 0.0;
     
-    for(int i = 0; i < n; ++i) {
+    for(int i = 0; i < n; ++i)
         res = res + 1.0 / (float) arr[i];
-    }
     
     return res;
 }
@@ -79,12 +71,11 @@ float sum(int * arr, int n) {
 double fac(int n) {
     double val = 1.0;
     
-    if(n == 0) {
+    if(n == 0)
         return val;
-    }
-    if(n > 0) {
+    
+    if(n > 0)
         val = n * fac(n - 1);
-    }
     
     return val;
 }
@@ -251,7 +242,7 @@ float solve3(std::vector<int> & y) {
     
     outer(y, y, out_val);
     
-    sum_val = sum_rows(out_val, n, n);
+    sum_rows(out_val, n, sum_val);
     
     float sum_loc = sum(sum_val, n);
     
