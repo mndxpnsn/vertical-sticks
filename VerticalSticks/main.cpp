@@ -12,13 +12,12 @@
 #include <iostream>
 #include <vector>
 
-void outer(std::vector<int> & x, std::vector<int> & y, int ** out) {
-    int nx = (int) x.size();
-    int ny = (int) y.size();
+void outer(std::vector<int> & y, int ** out) {
+    int n = (int) y.size();
     
-    for(int i = 0; i < nx; ++i) {
-        for(int j = 0; j < ny; ++j) {
-            if(x[i] <= y[j]) {
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < n; ++j) {
+            if(y[i] <= y[j]) {
                 out[i][j] = true;
             }
             else {
@@ -237,7 +236,7 @@ float solve3(std::vector<int> & y) {
     int ** out_val = create_outer(n);
     int * sum_val = new int[n];
     
-    outer(y, y, out_val);
+    outer(y, out_val);
     
     sum_rows(out_val, n, sum_val);
     
