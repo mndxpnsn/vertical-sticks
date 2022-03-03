@@ -49,21 +49,18 @@ void delete_outer(int ** out, int n) {
 void sum_rows(int ** outer_arg, int n, int * res) {
     
     for(int i = 0; i < n; ++i) {
-        res[i] = 0;
+        res[i] = 1;
         for(int j = 0; j < n; ++j) {
             res[i] = res[i] + outer_arg[i][j];
         }
     }
-    
-    for(int i = 0; i < n; ++i)
-        res[i]++;
 }
 
 float sum(int * arr, int n) {
     float res = 0.0;
     
     for(int i = 0; i < n; ++i)
-        res = res + 1.0 / (float) arr[i];
+        res = res + 1.0 / arr[i];
     
     return res;
 }
