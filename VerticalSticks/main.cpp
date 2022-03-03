@@ -38,9 +38,8 @@ int ** create_outer(int n) {
 
 void delete_outer(int ** out, int n) {
     
-    for(int i = 0; i < n; ++i) {
+    for(int i = 0; i < n; ++i)
         delete [] out[i];
-    }
     
     delete [] out;
 }
@@ -49,9 +48,8 @@ void sum_rows(int ** outer_arg, int n, int * res) {
     
     for(int i = 0; i < n; ++i) {
         res[i] = 1;
-        for(int j = 0; j < n; ++j) {
+        for(int j = 0; j < n; ++j)
             res[i] = res[i] + outer_arg[i][j];
-        }
     }
 }
 
@@ -171,7 +169,7 @@ double compute_expectation(int n, std::vector<int> & A) {
     std::vector<int> c;
     
     for(int i = 0; i < n; ++i)
-         c.push_back(0);
+        c.push_back(0);
     
     // Compute distances of first permutation
     dist = dist + V2(A);
